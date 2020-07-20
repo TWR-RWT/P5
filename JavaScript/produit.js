@@ -29,14 +29,14 @@ function AjoutImage(section, ImageProduit) {
     const newPicture = document.createElement("img");
     section.appendChild(newPicture);
     newPicture.setAttribute('src', ImageProduit);
-    newPicture.className = "img-fluid" /*Verif class*/
+    newPicture.className = "img-fluid"
 }
 //Function AjoutNom
 function AjoutNom(section, NomProduit) {
     const newName = document.createElement("h1");
     section.appendChild(newName);
     newName.innerHTML = NomProduit;
-    newName.className = "text-center"; /*Ajouter perso class*/
+    newName.className = "text-center";
 }
 //Function AjoutDescription
 function AjoutDescription(section, DescriptionText) {
@@ -45,19 +45,13 @@ function AjoutDescription(section, DescriptionText) {
     DescriptionProduit.innerHTML = DescriptionText;
     DescriptionProduit.className = "text-center";
 }
-//Function AjoutDescription
-/*function AjoutDescription(Description) {
-    DescriptionProduit.innerHTML = Description;
-    DescriptionProduit.className = "text-left";
-} */
 
 //Function AjoutOptions
-function AjoutOptions(ulName, AjoutOption) {
+function AjoutOptions(section, AjoutOption) {
     for (let i = 0; i < AjoutOption.length; i++) {
         const newOption = document.createElement('option');
-        ulName.appendChild(newOption);
+        section.appendChild(newOption);
         newOption.innerHTML = AjoutOption[i];
-        newOption.className = "" /*Ajout class perso class*/
         newOption.id = "option_" + i;
     }
 }
@@ -149,7 +143,7 @@ function getAllFurniture() {
                         localStorage.setItem('ProduitsDuPanier', JSON.stringify(FurnitureTab));
                         MessageConfirmationPanier(Validator, NombreProduits.value, NombreProduits.value, data.name)
                     }
-                    refreshNumberBasket();
+                    RafraichirLePanier();
                 }
             });
         })

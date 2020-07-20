@@ -12,52 +12,50 @@ function addProductCard(section, FurniturePicture, FurnitureName, FurniturePrice
     //Add Section Col
     const newSection = document.createElement("section");
     section.appendChild(newSection);
-    newSection.className = "col-sm-6 col-md-4 mb-2"; /*modif la class*/
+    newSection.className = "col-sm-6 col-md-4 mb-2"; 
     //Add section Card
     const newSection_1 = document.createElement("section");
     newSection.appendChild(newSection_1);
-    newSection_1.className = "catalogue__section__card card h-100 bg-light border-secondary"; /*modif la class*/
+    newSection_1.className = "card h-100 bg-light border-secondary";
 
     //New div card-header
     const newCardHeader = document.createElement("div");
     newSection_1.appendChild(newCardHeader);
-    newCardHeader.className = "catalogue__section__card__text card-header text-center"; /*modif la class*/
+    newCardHeader.className = "card-header text-center";
     //Add Name
     const newName = document.createElement("h3");
     newCardHeader.appendChild(newName);
     newName.innerHTML = FurnitureName;
-    newName.className = "catalogue__section__card__text__name product_name"; /*modif la class*/
+
 
     //New div card-body
     const newDiv = document.createElement("div");
     newSection_1.appendChild(newDiv);
-    newDiv.className = "card-body"; /*modif la class*/
+    newDiv.className = "card-body"; 
     //Add price
     const newPrice = document.createElement("p");
     newDiv.appendChild(newPrice);
     FurniturePrice_format = FurniturePrice / 100
     newPrice.innerHTML = FurniturePrice_format.toPrecision(4) + " € l'unité";
-    newPrice.className = "catalogue__section__card__text__price "; /*modif la class*/
+
 
     //Add picture
     const newPicture = document.createElement("img");
     newSection_1.appendChild(newPicture);
     newPicture.setAttribute('src', FurniturePicture);
-    newPicture.className = "catalogue__section__card__img card-img-bottom" /*modif la class*/
+    newPicture.className = "card-img-bottom"
 
     //New div card-footer
     const newCardFooter = document.createElement("div");
     newSection_1.appendChild(newCardFooter);
-    newCardFooter.className = "catalogue__section__card__text card-footer text-center";
+    newCardFooter.className = "card-footer text-center";
     //Add button
     const newButton = document.createElement("a");
     newCardFooter.appendChild(newButton);
     newButton.innerHTML = "Voir le produit";
-    newButton.setAttribute('href', './produit.html?id=' + Furniture_id); /*connexion à la page produit pas encore créée*/
-    newButton.className = "catalogue__section__card__btn btn btn-info"; /*modif la class*/
+    newButton.setAttribute('href', './produit.html?id=' + Furniture_id);
+    newButton.className = "btn btn-info";
     newButton.setAttribute("type", "button");
-    console.log(Furniture_id); /*pas nécessaire*/
-
 }
 /*----->REQUEST>-----*/
 function getAllFurniture() {
@@ -65,7 +63,6 @@ function getAllFurniture() {
         .then(function(response) {
             if (response.ok) {
                 console.log("Récupération des données de l'API OK");
-                //Fonction de réponse
                 return response.json() // Retourne la réponse en format JSON quand terminé
             }
         })

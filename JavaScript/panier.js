@@ -5,7 +5,7 @@ const buttonSupprimer_Panier = document.getElementById("supprimer_panier");
 const buttonAjouter_Panier = document.getElementById("ajouter_panier");
 
 //Display of number of articles
-function refreshNumberBasket() {
+function RafraichirLePanier() {
     let FournitureAjouter_Panier = localStorage.getItem("ProduitsDuPanier");
     let FournitureTableau_Panier = JSON.parse(FournitureAjouter_Panier);
     if (FournitureTableau_Panier) {
@@ -19,4 +19,4 @@ function refreshNumberBasket() {
 }
 
 /*----->FUNCTION CALL<-----*/
-refreshNumberBasket()
+RafraichirLePanier()

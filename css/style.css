@@ -9926,5 +9926,12 @@ h3 {
     opacity: 0;
   }
 }
+.invisible {
+  display: none;
+}
+
+.mx40 {
+  max-width: 40%;
+}
 
 /*# sourceMappingURL=style.css.map */
