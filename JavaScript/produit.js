@@ -54,6 +54,9 @@ function AjoutOptions(section, AjoutOption) {
         newOption.innerHTML = AjoutOption[i];
         newOption.id = "option_" + i;
     }
+    const AucuneOption = document.createElement('option')
+    section.appendChild(AucuneOption);
+    AucuneOption.innerHTML = "sans vernis";
 }
 //function AjoutPrix
 function AjoutPrix(section, FourniturePrice) {

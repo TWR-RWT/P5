@@ -61,12 +61,12 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
                     //AjoutTitre
                     const AjoutTitre = document.createElement("h6");
                     AjoutFigcaption.appendChild(AjoutTitre);
-                    AjoutTitre.className = "title text-truncate pl-3";
+                    AjoutTitre.className = "title text-truncate";
                     AjoutTitre.innerHTML = FurnitureInfo[i].name;
                     //AjoutDl
                     const AjoutDl = document.createElement("dl");
                     AjoutFigcaption.appendChild(AjoutDl);
-                    AjoutDl.className = "param param-inline small pl-3";
+                    AjoutDl.className = "param param-inline small";
                         //AjoutDt
                         const AjoutDt = document.createElement("dt");
                         AjoutDl.appendChild(AjoutDt);
@@ -78,7 +78,7 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
                     //AjoutDl2
                     const AjoutDl2 = document.createElement("dl");
                     AjoutFigcaption.appendChild(AjoutDl2);
-                    AjoutDl2.className = "param param-inline small pl-3";
+                    AjoutDl2.className = "param param-inline small";
                         //AjoutDt
                         const AjoutDt2 = document.createElement("dt");
                         AjoutDl2.appendChild(AjoutDt2);
@@ -106,13 +106,12 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
                 //Ajout PrixFurniture
                 const AjoutPrixFurniture = document.createElement("var");
                 AjoutDivPrix.appendChild(AjoutPrixFurniture);
-                const Prix = FurnitureInfo[i].price * FurnitureInfo[i].number / 100;
+                const Prix = FurnitureInfo[i].price / 100;
                 AjoutPrixFurniture.innerHTML = Prix.toPrecision(4) + " €";
                 //Ajout Small
                 const AjoutSmall = document.createElement("small");
                 AjoutDivPrix.appendChild(AjoutSmall);
-                const PrixUnite = FurnitureInfo[i].price / 100;
-                AjoutSmall.innerHTML = " (" + PrixUnite + "€ l'unité)";
+                AjoutSmall.innerHTML = "(l'unité)";
                 AjoutSmall.className = "text-muted";
         
         //Ajout Supprimer
@@ -120,12 +119,12 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
         newTr.appendChild(AjoutSupprimer);
         AjoutSupprimer.className = "text-right";
             //Ajout ButtonSupprimer
-/*            const AjoutButtonSupprimer = document.createElement("button");
+            const AjoutButtonSupprimer = document.createElement("button");
             AjoutSupprimer.appendChild(AjoutButtonSupprimer);
             AjoutButtonSupprimer.innerHTML = " × Supprimer";
             AjoutButtonSupprimer.id = "ButtonSupprimer" + i;
             AjoutButtonSupprimer.className = "btn btn-outline-danger";
-            AjoutButtonSupprimer.type = "button"; */
+            AjoutButtonSupprimer.type = "button";
 }
     // Fin AjouterLeProduit //
         // Construction table //
@@ -217,15 +216,10 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
 
     // Construction SousTotal //
         // Calcul du Total à Payer //
-        function CalculPrixTotal(Nb, PrixSommeProduits) {
-            NombreProduit.innerHTML = Nb;
-            PrixFurniture.innerHTML = PrixSommeProduits + " €";
-            let fraisdeport = 5;
-            FraisDeLivraison.innerHTML = fraisdeport + " €";
-            PrixFacture = PrixSommeProduits + fraisdeport;
-            MontantFacture.innerHTML = PrixFacture + " €";
+        function CalculPrixTotal(i) {
+            NombreProduit.innerHTML = i + 1;
             //alert(PanierFurnitureTableau[i]);
-/*            AllFurnitureTab.push(PanierFurnitureTableau[i].price); /// enlever cette ligne
+            AllFurnitureTab.push(PanierFurnitureTableau[i].price); /// enlever cette ligne
             //alert(AllFurnitureTab);
             let PrixFinal = 0;
             for (let i = 0; i < PanierFurnitureTableau.length; i++) {
@@ -239,7 +233,7 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
             let fraisdeport = 5;
             FraisDeLivraison.innerHTML = fraisdeport + " €";
             PrixFacture = PrixFinal2 + fraisdeport;
-            MontantFacture.innerHTML = PrixFacture + " €"; */
+            MontantFacture.innerHTML = PrixFacture + " €";
         }
         // Fin Calcul du Total à Payer //
 
@@ -361,22 +355,11 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
 
     // Construction ListeProduits //
     function ConstructionListeProduits() {
-        let TOTALPrix = 0;
-        let TOTALUnite = 0;
         if (PanierFurnitureTableau) {
-            for (let i = 0; i < PanierFurnitureTableau.length; i++) {
-                TOTALPrix += PanierFurnitureTableau[i].number * PanierFurnitureTableau[i].price / 100;
-                TOTALUnite += parseInt(PanierFurnitureTableau[i].number);
-            }
-            console.log(TOTALPrix);
-            console.log(TOTALUnite);
-            CalculPrixTotal(TOTALUnite, TOTALPrix);
             for (let i = 0; i < PanierFurnitureTableau.length; i++) {
                 if (PanierFurnitureAjoutee != null) {
                     AjouterLeProduit(ProduitParProduit, PanierFurnitureTableau, i);
-                    console.log(PanierFurnitureTableau[i]);// Object 
-                    console.log(PanierFurnitureTableau[i].number); //quantité de la ligne
-                    //CalculPrixTotal(i);
+                    CalculPrixTotal(i);
                 } else { 
                     MessagePanierVide(body);
                     cadre.add("invisible");
@@ -395,12 +378,7 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
                 NuméroDeCommande: orderID,
                 PrixCommande: PrixTotal,
             }
-            //alert(DetailCommande);
-            console.log(DetailCommande);
-            //localStorage.removeItem("Commandes");     //pour effacer l'historique de commande dans le localstorage au cas où
-            const CommandesAjoutées = localStorage.getItem("Commandes");
-            //alert(CommandesAjoutées);
-            console.log(CommandesAjoutées);
+            const CommandesAjoutées = localStorage.getItem("Commandes")
             if (CommandesAjoutées) {
                 TableauCommande = JSON.parse(CommandesAjoutées);
                 TableauCommande.push(DetailCommande);
@@ -414,7 +392,7 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
         }
         // Fin EnvoiPageConfirmation //
         // Method Envoi Commandes //
-/*        const MethodPost = async(url, packet) => {
+        const MethodPost = async(url, packet) => {
             const response = await fetch(url, {
                 method: 'POST',
                 mode: 'cors',
@@ -428,7 +406,7 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
             } else {
                 console.log("Erreur lors de l'envoi des données: " + error);
             }
-        }   ---------------------------------------------------------------*/
+        }
         // Fin Method Envoi Commandes //
     // Fin Envoie InfoPageConfirmation //
 
@@ -473,88 +451,13 @@ ConstructionListeProduits();
     // Fin ButtonValiderPanier //
 // Fin Validation et apparition Panier //
 
-// Nouveau ---------------------------------------------------------------
-function stringifyPost() {
-    let Firstname = document.querySelector('#PrenomFormulaire').value;
-    console.log(typeof Firstname); // C'est bien en format string
-    let Lastname = document.querySelector('#NomFormulaire').value;
-    console.log(typeof Lastname); // C'est bien en format string
-    let Address = document.querySelector('#AdresseFormulaire').value;
-    console.log(typeof Address); // C'est bien en format string
-    let City = document.querySelector('#VilleFormulaire').value;
-    console.log(typeof City); // C'est bien en format string
-    let Email = document.querySelector('#MailFormulaire').value;
-    console.log(typeof Email); // C'est bien en format string
-    let contact = {
-        firstName: Firstname,
-        lastName: Lastname,
-        address: Address,
-        city: City,
-        email: Email
-    }
-    console.log(typeof contact); // C'est bien en format string
-    let products = []
-    for (let i = 0; i < PanierFurnitureTableau.length; i++) {
-        products.push(PanierFurnitureTableau[i].ID);
-        console.log(typeof PanierFurnitureTableau[i].ID); // C'est bien en format string
-    }
-    console.log(typeof products); // C'est bien un object array
-    //alert(Array.isArray(products)); // array true
-    return JSON.stringify({contact, products});
-}
-
-/*
-function fetchResponse(){
-    const response = fetch('http://localhost:3000/api/furniture/order', {
-        method: 'POST',
-        mode: 'cors',
-        body: stringifyPost(),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    })
-    if (response.ok) {
-        return response.json();
-    } else {
-        console.log("Erreur lors de l'envoi des données")
-    }
-}
-*/
-/*
-buttonValiderCommande.addEventListener('click', function(e){
-    e.preventDefault()
-    const RESPONSE = fetchResponse();
-    console.log(RESPONSE)
-    console.log(RESPONSE.orderId)
-    alert(RESPONSE.orderId)
-})*/
 
 
-buttonValiderCommande.addEventListener('click', function(e){
-    e.preventDefault()
-    fetch('http://localhost:3000/api/furniture/order', {
-        method: 'POST',
-        mode: 'cors',
-        body: stringifyPost(),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    }).then(function(response){
-        response.json().then(function(data) {
-            EnvoiConfirmationPage(data.orderId, PrixFacture);
-        })
- /*       const retour = JSON.parse(response)
-        alert(retour)
-        console.log(retour)
-        alert(retour.orderId)
-        EnvoiConfirmationPage(retour.orderId, PrixFacture);*/
-    }).catch(console.log('fetch error'))
-})
 
-// Fin Nouveau -----------------------------------------------------------
+var PacketEnvoye;
 
 // Listener FinalisationCommande //
-/*buttonValiderCommande.addEventListener('click', async(event) => {
+buttonValiderCommande.addEventListener('click', async(event) => {
     if ((PrenomFormulaire.value === '' || NomFormulaire.value === '' || AdresseFormulaire.value === '' || VilleFormulaire.value === '' || MailFormulaire.value === '')) {
         alert("Formulaire incomplet");
         AjoutMessageErreurAjoutMessageErreur(body, "Formulaire incomplet");
@@ -593,5 +496,5 @@ buttonValiderCommande.addEventListener('click', function(e){
             EnvoiConfirmationPage(response.orderId, PrixFacture);
         }
     }
-})*/
+})
 // Fin Listener FinalisationCommande //
