@@ -83,7 +83,7 @@ function MessageConfirmationPanier(section, basketValue, value, name) {
 }
 
 //Function ErreurQuantite
-function ErreurQuantite(section) {
+function ErreurQuantite(section, TEXTO) {
     let child = document.getElementById("Message");
     if (child) { 
         section.removeChild(child);
@@ -92,7 +92,7 @@ function ErreurQuantite(section) {
     section.appendChild(AjoutTextErreur);
     AjoutTextErreur.setAttribute("id", "Message");
     AjoutTextErreur.className = "text-center alert-danger MessageValidation mr-2";
-    AjoutTextErreur.innerHTML = "Quantité indiquée invalide"
+    AjoutTextErreur.innerHTML = TEXTO;
 }
 
 /*----->REQUEST>-----*/
@@ -122,8 +122,11 @@ function getAllFurniture() {
 
             //function buttonAjouterPanier on click
             buttonAjouterPanier.addEventListener('click', function() {
+                let number = parseFloat(NombreProduits.value);
                 if (NombreProduits.value <= 0) {
-                    ErreurQuantite(Validator);
+                    ErreurQuantite(Validator, "Quantité indiquée trop petite");
+                } else if (!Number.isInteger(number)) {
+                    ErreurQuantite(Validator, "La quantité doit être un nombre entier");
                 } else {
                     let AjoutFurniture = {
                         ID: data._id,

@@ -12,6 +12,9 @@ const buttonValiderCommande = document.getElementById("buttonValiderCommande"); 
 const body = document.getElementById("body"); // Selection le body pour l'insertion d'élèment en bas de page comme les messages d'alerte
 const cadre = document.getElementById("cadre"); // Ajouter le SousTotal, Rendre invisible
 
+const ParagraphePanierRempli = document.getElementById("ParagraphePanierRempli");
+const ParagraphePanierVide = document.getElementById("ParagraphePanierVide");
+const Jumbotron = document.getElementById("jumbotron");
 
     /*----->CONSTANTS<-----*/
     const PrenomFormulaire = document.getElementById("PrenomFormulaire");
@@ -31,6 +34,15 @@ let PanierFurnitureTableau = JSON.parse(PanierFurnitureAjoutee);
 let AllFurnitureTab = [];
 let PrixFacture;
 
+/* Fonction PagePanierVide */
+function PagePanierVide(){
+    if (PanierFurnitureAjoutee == null){
+        ParagraphePanierRempli.classList.add("d-none");
+        ParagraphePanierVide.classList.remove("d-none");
+        Jumbotron.classList.add("d-none");
+    } else {}
+}
+PagePanierVide()
 /*-----Fonctions-----*/
 /*  AjouterLeProduit    */
 function AjouterLeProduit(section, FurnitureInfo, i) {
@@ -210,7 +222,7 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
             let TextPanierVide = document.createElement("p");
             section.appendChild(TextPanierVide);
             TextPanierVide.className = "MessageValidation alert alert-warning";
-            TextPanierVide.innerHTML = "Le panier est vide"
+            TextPanierVide.innerHTML = "Le panier est vide";
         }
         // Fin Message Si Panier Vide //
     // Fin Suppression Produit //
@@ -257,11 +269,10 @@ function AjouterLeProduit(section, FurnitureInfo, i) {
         // Fin REGEX //
                 // Ajout Message Erreur //
                 function AjoutMessageErreur(section, TextErreur) {
-                    let MessageErreur = document.createElement("div");
+                    let MessageErreur = document.createElement("p");
                     section.appendChild(MessageErreur);
+                    MessageErreur.className = "MessageValidation alert alert-danger";
                     MessageErreur.innerHTML = TextErreur;
-                    MessageErreur.classList.add("MessageValidation alert alert-danger");
-                    MessageErreur.setAttribute("role", "alert");
                     }
                 // Fin Ajout Message Erreur //
         // Verif Form //
@@ -451,10 +462,11 @@ ConstructionListeProduits();
                     ProduitParProduit.removeChild(ProduitParProduit.lastChild);
                 }
             RafraichirLePanier();
-            MessageSuppressionPanier(body);
-            FormulaireFurnitures.classList.remove("visible");
-            FormulaireFurnitures.classList.add("invisible");
-            ButtonSupprimerTout.classList.add("invisible");    
+            //MessageSuppressionPanier(body); // Recharge directement après la page donc ne sert à rien
+            //FormulaireFurnitures.classList.remove("visible");
+            //FormulaireFurnitures.classList.add("invisible");
+            //ButtonSupprimerTout.classList.add("invisible");  
+            document.location.reload(true);  
         }
     })
     // Fin Button SupprimerTout //
@@ -532,6 +544,13 @@ buttonValiderCommande.addEventListener('click', function(e){
 
 buttonValiderCommande.addEventListener('click', function(e){
     e.preventDefault()
+    if ((PrenomFormulaire.value === '' || NomFormulaire.value === '' || AdresseFormulaire.value === '' || VilleFormulaire.value === '' || MailFormulaire.value === '')) {
+        //alert("Formulaire incomplet");
+        AjoutMessageErreur(body, "Formulaire incomplet");
+    } else if (VerifText(PrenomFormulaire.value) === false || VerifText(NomFormulaire.value) === false || VerifAddress(AdresseFormulaire.value) === false || VerifText(VilleFormulaire.value) === false || VerifMail(MailFormulaire.value) === false) {
+        //alert("Formulaire incorrect");
+        AjoutMessageErreur(body, "Formulaire incorrect");
+    } else {
     fetch('http://localhost:3000/api/furniture/order', {
         method: 'POST',
         mode: 'cors',
@@ -549,7 +568,7 @@ buttonValiderCommande.addEventListener('click', function(e){
         alert(retour.orderId)
         EnvoiConfirmationPage(retour.orderId, PrixFacture);*/
     }).catch(console.log('fetch error'))
-})
+}})
 
 // Fin Nouveau -----------------------------------------------------------
 
@@ -557,7 +576,7 @@ buttonValiderCommande.addEventListener('click', function(e){
 /*buttonValiderCommande.addEventListener('click', async(event) => {
     if ((PrenomFormulaire.value === '' || NomFormulaire.value === '' || AdresseFormulaire.value === '' || VilleFormulaire.value === '' || MailFormulaire.value === '')) {
         alert("Formulaire incomplet");
-        AjoutMessageErreurAjoutMessageErreur(body, "Formulaire incomplet");
+        AjoutMessageErreur(body, "Formulaire incomplet");
     } else if (VerifText(PrenomFormulaire.value) === false || VerifText(NomFormulaire.value) === false || VerifAddress(AdresseFormulaire.value) === false || VerifText(VilleFormulaire.value) === false || VerifMail(MailFormulaire.value) === false) {
         alert("Formulaire incorrect");
     } else if (PanierFurnitureTableau.length === 0) {

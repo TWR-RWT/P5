@@ -37,11 +37,12 @@
 
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Votre panier</h1>
-    <p class="lead">Merci de remplir le formulaire ci-dessous pour finaliser votre commande.</p>
+    <p class="lead" id="ParagraphePanierRempli">Merci de remplir le formulaire ci-dessous pour finaliser votre commande.</p>
+    <p class="lead d-none" id="ParagraphePanierVide">est vide pour le moment. Remplissez-le !</p>
   </div>
 
 <!---Debut Panier-->
-  <div class="container jumbotron">
+  <div class="container jumbotron" id="jumbotron">
 
     <div class="card" id="cadre">
         <table class="table table-hover shopping-cart-wrap">
@@ -69,30 +70,30 @@
             <div class="form-row">
                 <div class="form-group col-md-6" id="PrenomFormulaireDiv">
                     <label for="PrenomFormulaire">Prénom</label>
-                    <input type="text" class="form-control" id="PrenomFormulaire" placeholder="Entrez votre prénom">
+                    <input type="text" class="form-control" id="PrenomFormulaire" placeholder="Entrez votre prénom" required="required">
                 </div>
                 <div class="form-group col-md-6" id="NomFormulaireDiv">
                     <label for="NomFormulaire">Nom</label>
-                    <input type="text" class="form-control" id="NomFormulaire" placeholder="Entrez votre nom">
+                    <input type="text" class="form-control" id="NomFormulaire" placeholder="Entrez votre nom" required="required">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6" id="AdresseFormulaireDiv">
                     <label for="AdresseFormulaire">Adresse</label>
-                    <input type="text" class="form-control" id="AdresseFormulaire" placeholder="Entrez l'adresse de livraison">
+                    <input type="text" class="form-control" id="AdresseFormulaire" placeholder="Entrez l'adresse de livraison" required="required">
                 </div>
                 <div class="form-group col-md-6" id="VilleFormulaireDiv">
                     <label for="VilleFormulaire">Ville</label>
-                    <input type="text" class="form-control" id="VilleFormulaire" placeholder="Entrez la ville de livraison">
+                    <input type="text" class="form-control" id="VilleFormulaire" placeholder="Entrez la ville de livraison" required="required">
                 </div>
             </div>
             <div class="form-group" id="MailFormulaireDiv">
                 <label for="MailFormulaire">Email</label>
-                <input type="email" class="form-control" id="MailFormulaire" placeholder="Entrez votre email">
+                <input type="email" class="form-control" id="MailFormulaire" placeholder="Entrez votre email" required="required">
             </div>
             <div class="row justify-content-md-center">
                 <button type="submit" class="btn btn-primary mx-2" id="buttonValiderCommande">Confirmer</button>
-                <button type="submit" class="btn btn-primary mx-2" id="ButtonSupprimerTout">Vider le panier</button>
+                <button class="btn btn-primary mx-2" id="ButtonSupprimerTout">Vider le panier</button>
             </div>
         </form>
 </div>
